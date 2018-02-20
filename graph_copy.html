@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Assignment 1</title>
+	<script type="text/javascript" src="../d3.js"></script>
+	<link rel="stylesheet" href="styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+	<div id="container" class="container">
+
+		<h2>Part 1: DAOST Chapter 2 Questions</h2>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				Explain in your own words the point of the jitter plot.
+			</div>
+			<div>
+				A jitter plot is a special scatter plot. Jittering stand for a specific procedure where the aim is to prevent overlapping
+				in statistical graphics. Overlapping can occur when the data is not continuous and only specific values can be interpreted
+				or when a continuous measurement is rounded to the nearest value. Jittering is achieved by adding a random noise to the
+				data and thus shifting them a bit away from their original locations. To improve the visual experience it is recommended
+				to represent datapoints with an empty circle instead of a dot, thus helping the eye to distinguish the ones who are close
+				to each other.
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				Explain in your own words the point of figure 2-3. (I'm going to skip saying "in your own words" going forward, but I hope
+				you get the point; I expect all answers to be in your own words).
+			</div>
+			<div>
+				Plotting data with histograms results in information loss, due to the binning process applied in histogram creation. This
+				information loss is displayed on the figure mentioned in the question. The plots are representing the same dataset, the
+				only difference is the number of bins used in the histogram. Choosing the proper binning has a huge effect on the resulting
+				diagram. It is recommended to try a few binning solutions before settling for the final one.
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				The author of DAOST (Philipp Janert) likes KDEs (and think they're better than histograms). And I don't. I didn't give a
+				detailed explanation in the video, but now that works to my advantage. I'll ask you guys to think about this and thereby
+				create an excellent exercise: When can KDEs be misleading?
+			</div>
+			<div>
+				KDE stands for Kernel Density Estimation, an alternative solution to histograms. The problems one can face when using histograms
+				are that they are not smooth, they depend on end points of bins and they depend on the width of bins. The first two problems
+				can be solved by using KDEs. Rather than fixing the end points of the blocks we center each of the data blocks at each
+				data point. With a very fine "blocking" procedure, and by placing blocks on top of each other when there is an overlap
+				we can obtain the density estimate. But at this step our graph is still "blocky". To solve this we should use a smooth
+				Gaussian curve instead of the block when there is a datapoint. Selecting the proper bandwidth of the Gaussian curve is
+				a very important step, with a small standard deviation the final graph we obtain will be "undersmoothed", but applying
+				a big standard deviation will result in an "oversmoothed" graph. As a drawback of KDE it is important to mention that
+				it is hard to see where the actual data is. In some cases it is better to see the data position directly.
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				I've discussed some strengths of the CDF - there are also weaknesses. Janert writes "[CDFs] have less intuitive appeal than
+				histograms of KDEs". What does he mean by that?
+			</div>
+			<div>
+				Cumulative Distribution Function is more or less the integral of the histogram. This graph at point 'x' tells us what fraction
+				of data can be fount to the 'left' of x. This type of diagram has a lot of essential advantages. Reading of important
+				key values such as minimum, median, quantil or maximum can be easily done directly from the plot. Detection of outlier
+				data can be also done from this plot. Besides these advantages mentioned previously, this type of data visualization
+				has drawbacks too. The problem is that the eye is much better at judging distances than areas and CDF uses aereas to
+				represent datapoints.
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				What is a
+				<i>Quantile plot</i>? What is it good for.
+			</div>
+			<div>
+				A quantile plot is obtained from a CDF plot by switching the x-y axes. The information contained in this graph is the same
+				as it was in the CDF but the main reason behind this type of graphs is the better data representation.
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				How is a
+				<i>Probablity plot</i> defined? What is it useful for? Have you ever seen one before?
+			</div>
+			<div>
+
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				One of the reasons I like DAOST is that Janert is so suspicious of mean, median, and related summary statistics. Explain
+				why one has to be careful when using those - and why visualization of the full data is always better.
+			</div>
+			<div>
+
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				I love box plots. When are box plots most useful?
+			</div>
+			<div>
+
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="question">
+				<i class="material-icons">help</i>
+				The book doesn't mention
+				<a href="https://en.wikipedia.org/wiki/Violin_plot" target="_blank">violin</a> plots. Are those better or worse than box plots? Why?
+			</div>
+			<div>
+
+			</div>
+		</div>
+
+		<h2>Part 2: DAOST Chapter 3 Questions</h2>
+
+		<h2>Part 3: Viz 1</h2>
+
+		<h2>Part 4: Viz 2</h2>
+
+		<p id="fruit_h">Fruit Harvest</p>
+		<p id="fruit_s">Fruit Storage</p>
+		<p id="veggie_h">Veggie Harvest</p>
+		<p id="veggie_s">Veggie Storage</p>
+
+		<script type="text/javascript">
+			//Width and height
+			var w = 600;
+			var h = 250;
+			var padding = 30;
+			var selected_category = 0;
+
+			var dataset = [
+				{ category: 0, month: "Jan", count: 0 },
+				{ category: 0, month: "Feb", count: 0 },
+				{ category: 0, month: "Mar", count: 0 },
+				{ category: 0, month: "Apr", count: 0 },
+				{ category: 0, month: "May", count: 0 },
+				{ category: 0, month: "Jun", count: 1 },
+				{ category: 0, month: "Jul", count: 7 },
+				{ category: 0, month: "Aug", count: 8 },
+				{ category: 0, month: "Sep", count: 10 },
+				{ category: 0, month: "Oct", count: 5 },
+				{ category: 0, month: "Nov", count: 0 },
+				{ category: 0, month: "Dec", count: 0 },
+				{ category: 1, month: "Jan", count: 0 },
+				{ category: 1, month: "Feb", count: 2 },
+				{ category: 1, month: "Mar", count: 2 },
+				{ category: 1, month: "Apr", count: 1 },
+				{ category: 1, month: "May", count: 1 },
+				{ category: 1, month: "Jun", count: 1 },
+				{ category: 1, month: "Jul", count: 1 },
+				{ category: 1, month: "Aug", count: 0 },
+				{ category: 1, month: "Sep", count: 0 },
+				{ category: 1, month: "Oct", count: 0 },
+				{ category: 1, month: "Nov", count: 2 },
+				{ category: 1, month: "Dec", count: 2 },
+				{ category: 2, month: "Jan", count: 0 },
+				{ category: 2, month: "Feb", count: 0 },
+				{ category: 2, month: "Mar", count: 0 },
+				{ category: 2, month: "Apr", count: 2 },
+				{ category: 2, month: "May", count: 11 },
+				{ category: 2, month: "Jun", count: 16 },
+				{ category: 2, month: "Jul", count: 23 },
+				{ category: 2, month: "Aug", count: 28 },
+				{ category: 2, month: "Sep", count: 33 },
+				{ category: 2, month: "Oct", count: 31 },
+				{ category: 2, month: "Nov", count: 11 },
+				{ category: 2, month: "Dec", count: 3 },
+				{ category: 3, month: "Jan", count: 9 },
+				{ category: 3, month: "Feb", count: 9 },
+				{ category: 3, month: "Mar", count: 6 },
+				{ category: 3, month: "Apr", count: 3 },
+				{ category: 3, month: "May", count: 3 },
+				{ category: 3, month: "Jun", count: 3 },
+				{ category: 3, month: "Jul", count: 2 },
+				{ category: 3, month: "Aug", count: 1 },
+				{ category: 3, month: "Sep", count: 0 },
+				{ category: 3, month: "Oct", count: 0 },
+				{ category: 3, month: "Nov", count: 6 },
+				{ category: 3, month: "Dec", count: 8 }];
+
+			//Calculate the data subset
+			var data = dataset.filter(d => d.category === selected_category);
+
+			//Create scale functions
+			var xScale = d3.scaleBand()
+				.domain(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+				.rangeRound([padding, w - padding * 2])
+				.paddingInner(0.05);
+
+			var yScale = d3.scaleLinear()
+				.domain([0, d3.max(data, function (d) { return d.count; })])
+				.range([h - padding, padding]);
+
+			//Define X axis
+			var xAxis = d3.axisBottom()
+				.scale(xScale)
+				.ticks(5);
+
+			//Define Y axis
+			var yAxis = d3.axisLeft()
+				.scale(yScale)
+				.ticks(5);
+
+			//Create SVG element
+			var svg = d3.select("#container")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h);
+
+			//Create bars
+			svg.selectAll("rect")
+				.data(data)
+				.enter()
+				.append("rect")
+				.attr("x", function (d, i) {
+					return xScale(d.month);
+				})
+				.attr("y", function (d) {
+					return yScale(d.count);
+				})
+				.attr("width", xScale.bandwidth())
+				.attr("height", function (d) {
+					return h - yScale(d.count) - padding;
+				})
+				.attr("fill", "blue");
+
+			//Create labels
+			svg.selectAll("text")
+				.data(data)
+				.enter()
+				.append("text")
+				.text(function (d) {
+					return d.count;
+				})
+				.attr("text-anchor", "middle")
+				.attr("x", function (d, i) {
+					return xScale(i) + xScale.bandwidth() / 2;
+				})
+				.attr("y", function (d) {
+					return yScale(d.count) + 14;
+				})
+				.attr("font-family", "sans-serif")
+				.attr("font-size", "11px")
+				.attr("fill", "white");
+
+			//Create X axis
+			svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+
+			//Create Y axis
+			svg.append("g")
+				.attr("class", "y axis")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+
+			//On click, update with new data			
+			d3.selectAll("p")
+				.on("click", function () {
+
+					//See which p was clicked
+					var paragraphID = d3.select(this).attr("id");
+					switch (paragraphID) {
+						case "fruit_h":
+							selected_category = 0;
+							break;
+						case "fruit_s":
+							selected_category = 1;
+							break;
+						case "veggie_h":
+							selected_category = 2;
+							break;
+						case "veggie_s":
+							selected_category = 3;
+							break;
+						default:
+							selected_category = 0;
+					}
+
+					data = dataset.filter(d => d.category === selected_category);
+
+					//Update scale domains
+					//xScale.domain(d3.range(data.length));
+					yScale.domain([0, d3.max(data, function (d) { return d.count; })]);
+
+					//Update all circles
+					svg.selectAll("rect")
+						.data(data)
+						.transition()
+						.duration(1000)
+						.attr("x", function (d) {
+							return xScale(d.month);
+						})
+						.attr("y", function (d) {
+							return yScale(d.count);
+						})
+						.attr("width", xScale.bandwidth())
+						.attr("height", function (d) {
+							return h - yScale(d.count) - padding;
+						});
+
+					//Update all labels
+					svg.selectAll("text")
+						.data(data)
+						.transition()
+						.duration(1000)
+						.text(function (d) {
+							return d.count;
+						})
+						.attr("x", function (d) {
+							return xScale(d.month) + xScale.bandwidth() / 2;
+						})
+						.attr("y", function (d) {
+							return yScale(d.count) + 14;
+						});
+
+					//Update X axis
+					svg.select(".x.axis")
+						.transition()
+						.duration(1000)
+						.call(xAxis);
+
+					//Update Y axis
+					svg.select(".y.axis")
+						.transition()
+						.duration(1000)
+						.call(yAxis);
+
+				});
+
+
+		</script>
+	</div>
+</body>
+
+</html>
