@@ -54,4 +54,31 @@ a:hover {
 
 .chart-input{
   cursor: pointer;
+  padding-bottom: 10px;
+}
+
+.chart3_table{
+  width: 100%;
+  text-align: center;
+}
+
+.chart3_selector1{
+  color: #3F51B5;
+  font-size: 19px !important;
+  padding-right: 5px;
+}
+.chart3_selector2{
+  color: #F44336;
+  font-size: 19px !important;
+  padding-right: 5px;
+}
+.chart3_selector3{
+  color: #E91E63;
+  font-size: 19px !important;
+  padding-right: 5px;
+}
+.chart3_selector4{
+  color: #2196F3;
+  font-size: 19px !important;
+  padding-right: 5px;
 }

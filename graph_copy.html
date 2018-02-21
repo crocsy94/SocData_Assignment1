@@ -270,20 +270,31 @@
 			<p>To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if
 				they were fresh or from storage.</p>
 			<div id="part3_chart" class="card">
-				<p id="fruit_h" class="chart-input">Fruit Harvest</p>
-				<p id="fruit_s" class="chart-input">Fruit Storage</p>
-				<p id="veggie_h" class="chart-input">Veggie Harvest</p>
-				<p id="veggie_s" class="chart-input">Veggie Storage</p>
+				<table class="chart3_table">
+					<tr>
+						<td id="fruit_h" class="chart-input"><i class="material-icons chart3_selector1">brightness_1</i>Fruit Harvest</td>
+						<td id="fruit_s" class="chart-input"><i class="material-icons chart3_selector2">brightness_1</i>Fruit Storage</td>
+					</tr>
+					<tr>
+						<td id="veggie_h" class="chart-input"><i class="material-icons chart3_selector3">brightness_1</i>Veggie Harvest</td>
+						<td id="veggie_s" class="chart-input"><i class="material-icons chart3_selector4">brightness_1</i>Veggie Storage</td>
+					</tr>
+				</table>
+			</div>
 
-				<script type="text/javascript">
+			<script type="text/javascript">
 
-					//var chartDiv = document.getElementById("part3_chart");
+				var chartDiv = document.getElementById("part3_chart");
+				//Create SVG element
+				var svg = d3.select(chartDiv).append("svg");
 
+				function redraw() {
 					//Width and height
-					var w = 600;
-					var h = 250;
+					var w = chartDiv.clientWidth;
+					var h = 300;
 					var padding = 30;
 					var selected_category = 0;
+					var color = "#3F51B5";
 
 					var dataset = [
 						{ category: 0, month: "Jan", count: 0 },
@@ -358,10 +369,7 @@
 						.scale(yScale)
 						.ticks(5);
 
-					//Create SVG element
-					var svg = d3.select("#part3_chart")
-						.append("svg")
-						.attr("width", w)
+					svg.attr("width", w)
 						.attr("height", h);
 
 					//Create bars
@@ -379,7 +387,7 @@
 						.attr("height", function (d) {
 							return h - yScale(d.count) - padding;
 						})
-						.attr("fill", "blue");
+						.attr("fill", color);
 
 					//Create labels
 					svg.selectAll("text")
@@ -391,7 +399,7 @@
 						})
 						.attr("text-anchor", "middle")
 						.attr("x", function (d, i) {
-							return xScale(i) + xScale.bandwidth() / 2;
+							return xScale(d.month) + xScale.bandwidth() / 2;
 						})
 						.attr("y", function (d) {
 							return yScale(d.count) + 14;
@@ -416,15 +424,21 @@
 					svg.append("text")
 						.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
 						.attr("transform", "translate(" + (padding / 3) + "," + (h / 2) + ")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-						.text("Value");
+						.text("# of products");
 
 					svg.append("text")
 						.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
 						.attr("transform", "translate(" + (w / 2) + "," + (h) + ")")  // centre below axis
-						.text("Date");
+						.text("Month");
+
+					// now add titles to the graph
+					svg.append("text")
+						.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+						.attr("transform", "translate(" + (w / 2) + "," + (padding / 2) + ")")  // text is drawn off the screen top left, move down and out and rotate
+						.text("NYC Green Markets - Unique Produce Types");
 
 					//On click, update with new data			
-					d3.selectAll("p")
+					d3.selectAll("td")
 						.on("click", function () {
 
 							//See which p was clicked
@@ -432,15 +446,19 @@
 							switch (paragraphID) {
 								case "fruit_h":
 									selected_category = 0;
+									color = "#3F51B5";
 									break;
 								case "fruit_s":
 									selected_category = 1;
+									color = "#F44336";
 									break;
 								case "veggie_h":
 									selected_category = 2;
+									color = "#E91E63";
 									break;
 								case "veggie_s":
 									selected_category = 3;
+									color = "#2196F3";
 									break;
 								default:
 									selected_category = 0;
@@ -466,7 +484,8 @@
 								.attr("width", xScale.bandwidth())
 								.attr("height", function (d) {
 									return h - yScale(d.count) - padding;
-								});
+								})
+								.attr("fill", color);
 
 							//Update all labels
 							svg.selectAll("text")
@@ -496,10 +515,12 @@
 								.call(yAxis);
 
 						});
+				};
 
+				redraw();
+				//window.addEventListener("resize", redraw);
 
-				</script>
-			</div>
+			</script>
 
 			<p>If you miss the month of September, you might be behind the fruit curve, but there are plenty more months of vegetables
 				left. The chart shows that fresh vegetables are available 9 out of 12 months, but fruit is only available 5 out of 12.
