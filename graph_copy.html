@@ -132,7 +132,10 @@
 				I love box plots. When are box plots most useful?
 			</div>
 			<div>
-
+				The box plot (or whiskers diagram) is a standardized way of displaying the distribution of data based on the five summary
+				statistics parameter mentioned before: minimum, first quartile, median, third quartile, and maximum. Box plots provide
+				an easy way to work with a huge data and to determine outliers in data. It is particularly useful for quickly summarizing
+				and comparing different sets of results from different experiments.
 			</div>
 		</div>
 
@@ -143,7 +146,9 @@
 				<a href="https://en.wikipedia.org/wiki/Violin_plot" target="_blank">violin</a> plots. Are those better or worse than box plots? Why?
 			</div>
 			<div>
-
+				At a first glance, according to our personal opinion they are harder to interpret compared to a simple box plot. The plot
+				itself is similar to a box plot, but instead of using straight lines in each side of the boxes, it uses a rotated kerner
+				density plot. Thus they're providing more information about the dataset, especially about the probability density.
 			</div>
 		</div>
 
@@ -253,182 +258,118 @@
 
 		<h2>Part 3: Viz 1</h2>
 
-		<h2>Part 4: Viz 2</h2>
+		<div class="card">
+			<p>This is a reproduction of
+				<a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">this site</a>.</p>
+			<a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the" class="h2 title">This is Quantifiably the Best Month to go to the Farmers Market</a>
+			<p>As part of a homework assignment, I ask my students at Pratt to go out and chart something of interest to them, and
+				<a href="https://www.linkedin.com/in/kvsavarese/">Katherine Savarese</a> came back with a simple chart about farmers markets that I loved- it inspired this post.</p>
+			<p>You probably know that farmers markets are a staple across
+				<a href="http://www.grownyc.org/files/gmkt/map.pdf">all five boroughs</a> of New York City, but September happens to be a very special month. Why is that? Well, it turns
+				out September is the month with the most unique types of fresh produce- forty three to be exact.</p>
+			<p>To show the current offerings, we charted how many types of fruits and vegetables are available by month, and showed if
+				they were fresh or from storage.</p>
+			<div id="part3_chart" class="card">
+				<p id="fruit_h" class="chart-input">Fruit Harvest</p>
+				<p id="fruit_s" class="chart-input">Fruit Storage</p>
+				<p id="veggie_h" class="chart-input">Veggie Harvest</p>
+				<p id="veggie_s" class="chart-input">Veggie Storage</p>
 
-		<p id="fruit_h">Fruit Harvest</p>
-		<p id="fruit_s">Fruit Storage</p>
-		<p id="veggie_h">Veggie Harvest</p>
-		<p id="veggie_s">Veggie Storage</p>
+				<script type="text/javascript">
 
-		<script type="text/javascript">
-			//Width and height
-			var w = 600;
-			var h = 250;
-			var padding = 30;
-			var selected_category = 0;
+					//var chartDiv = document.getElementById("part3_chart");
 
-			var dataset = [
-				{ category: 0, month: "Jan", count: 0 },
-				{ category: 0, month: "Feb", count: 0 },
-				{ category: 0, month: "Mar", count: 0 },
-				{ category: 0, month: "Apr", count: 0 },
-				{ category: 0, month: "May", count: 0 },
-				{ category: 0, month: "Jun", count: 1 },
-				{ category: 0, month: "Jul", count: 7 },
-				{ category: 0, month: "Aug", count: 8 },
-				{ category: 0, month: "Sep", count: 10 },
-				{ category: 0, month: "Oct", count: 5 },
-				{ category: 0, month: "Nov", count: 0 },
-				{ category: 0, month: "Dec", count: 0 },
-				{ category: 1, month: "Jan", count: 0 },
-				{ category: 1, month: "Feb", count: 2 },
-				{ category: 1, month: "Mar", count: 2 },
-				{ category: 1, month: "Apr", count: 1 },
-				{ category: 1, month: "May", count: 1 },
-				{ category: 1, month: "Jun", count: 1 },
-				{ category: 1, month: "Jul", count: 1 },
-				{ category: 1, month: "Aug", count: 0 },
-				{ category: 1, month: "Sep", count: 0 },
-				{ category: 1, month: "Oct", count: 0 },
-				{ category: 1, month: "Nov", count: 2 },
-				{ category: 1, month: "Dec", count: 2 },
-				{ category: 2, month: "Jan", count: 0 },
-				{ category: 2, month: "Feb", count: 0 },
-				{ category: 2, month: "Mar", count: 0 },
-				{ category: 2, month: "Apr", count: 2 },
-				{ category: 2, month: "May", count: 11 },
-				{ category: 2, month: "Jun", count: 16 },
-				{ category: 2, month: "Jul", count: 23 },
-				{ category: 2, month: "Aug", count: 28 },
-				{ category: 2, month: "Sep", count: 33 },
-				{ category: 2, month: "Oct", count: 31 },
-				{ category: 2, month: "Nov", count: 11 },
-				{ category: 2, month: "Dec", count: 3 },
-				{ category: 3, month: "Jan", count: 9 },
-				{ category: 3, month: "Feb", count: 9 },
-				{ category: 3, month: "Mar", count: 6 },
-				{ category: 3, month: "Apr", count: 3 },
-				{ category: 3, month: "May", count: 3 },
-				{ category: 3, month: "Jun", count: 3 },
-				{ category: 3, month: "Jul", count: 2 },
-				{ category: 3, month: "Aug", count: 1 },
-				{ category: 3, month: "Sep", count: 0 },
-				{ category: 3, month: "Oct", count: 0 },
-				{ category: 3, month: "Nov", count: 6 },
-				{ category: 3, month: "Dec", count: 8 }];
+					//Width and height
+					var w = 600;
+					var h = 250;
+					var padding = 30;
+					var selected_category = 0;
 
-			//Calculate the data subset
-			var data = dataset.filter(d => d.category === selected_category);
+					var dataset = [
+						{ category: 0, month: "Jan", count: 0 },
+						{ category: 0, month: "Feb", count: 0 },
+						{ category: 0, month: "Mar", count: 0 },
+						{ category: 0, month: "Apr", count: 0 },
+						{ category: 0, month: "May", count: 0 },
+						{ category: 0, month: "Jun", count: 1 },
+						{ category: 0, month: "Jul", count: 7 },
+						{ category: 0, month: "Aug", count: 8 },
+						{ category: 0, month: "Sep", count: 10 },
+						{ category: 0, month: "Oct", count: 5 },
+						{ category: 0, month: "Nov", count: 0 },
+						{ category: 0, month: "Dec", count: 0 },
+						{ category: 1, month: "Jan", count: 0 },
+						{ category: 1, month: "Feb", count: 2 },
+						{ category: 1, month: "Mar", count: 2 },
+						{ category: 1, month: "Apr", count: 1 },
+						{ category: 1, month: "May", count: 1 },
+						{ category: 1, month: "Jun", count: 1 },
+						{ category: 1, month: "Jul", count: 1 },
+						{ category: 1, month: "Aug", count: 0 },
+						{ category: 1, month: "Sep", count: 0 },
+						{ category: 1, month: "Oct", count: 0 },
+						{ category: 1, month: "Nov", count: 2 },
+						{ category: 1, month: "Dec", count: 2 },
+						{ category: 2, month: "Jan", count: 0 },
+						{ category: 2, month: "Feb", count: 0 },
+						{ category: 2, month: "Mar", count: 0 },
+						{ category: 2, month: "Apr", count: 2 },
+						{ category: 2, month: "May", count: 11 },
+						{ category: 2, month: "Jun", count: 16 },
+						{ category: 2, month: "Jul", count: 23 },
+						{ category: 2, month: "Aug", count: 28 },
+						{ category: 2, month: "Sep", count: 33 },
+						{ category: 2, month: "Oct", count: 31 },
+						{ category: 2, month: "Nov", count: 11 },
+						{ category: 2, month: "Dec", count: 3 },
+						{ category: 3, month: "Jan", count: 9 },
+						{ category: 3, month: "Feb", count: 9 },
+						{ category: 3, month: "Mar", count: 6 },
+						{ category: 3, month: "Apr", count: 3 },
+						{ category: 3, month: "May", count: 3 },
+						{ category: 3, month: "Jun", count: 3 },
+						{ category: 3, month: "Jul", count: 2 },
+						{ category: 3, month: "Aug", count: 1 },
+						{ category: 3, month: "Sep", count: 0 },
+						{ category: 3, month: "Oct", count: 0 },
+						{ category: 3, month: "Nov", count: 6 },
+						{ category: 3, month: "Dec", count: 8 }];
 
-			//Create scale functions
-			var xScale = d3.scaleBand()
-				.domain(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
-				.rangeRound([padding, w - padding * 2])
-				.paddingInner(0.05);
+					//Calculate the data subset
+					var data = dataset.filter(d => d.category === selected_category);
 
-			var yScale = d3.scaleLinear()
-				.domain([0, d3.max(data, function (d) { return d.count; })])
-				.range([h - padding, padding]);
+					//Create scale functions
+					var xScale = d3.scaleBand()
+						.domain(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+						.rangeRound([padding, w - padding * 2])
+						.paddingInner(0.05);
 
-			//Define X axis
-			var xAxis = d3.axisBottom()
-				.scale(xScale)
-				.ticks(5);
+					var yScale = d3.scaleLinear()
+						.domain([0, d3.max(data, function (d) { return d.count; })])
+						.range([h - padding, padding]);
 
-			//Define Y axis
-			var yAxis = d3.axisLeft()
-				.scale(yScale)
-				.ticks(5);
+					//Define X axis
+					var xAxis = d3.axisBottom()
+						.scale(xScale)
+						.ticks(5);
 
-			//Create SVG element
-			var svg = d3.select("#container")
-				.append("svg")
-				.attr("width", w)
-				.attr("height", h);
+					//Define Y axis
+					var yAxis = d3.axisLeft()
+						.scale(yScale)
+						.ticks(5);
 
-			//Create bars
-			svg.selectAll("rect")
-				.data(data)
-				.enter()
-				.append("rect")
-				.attr("x", function (d, i) {
-					return xScale(d.month);
-				})
-				.attr("y", function (d) {
-					return yScale(d.count);
-				})
-				.attr("width", xScale.bandwidth())
-				.attr("height", function (d) {
-					return h - yScale(d.count) - padding;
-				})
-				.attr("fill", "blue");
+					//Create SVG element
+					var svg = d3.select("#part3_chart")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
 
-			//Create labels
-			svg.selectAll("text")
-				.data(data)
-				.enter()
-				.append("text")
-				.text(function (d) {
-					return d.count;
-				})
-				.attr("text-anchor", "middle")
-				.attr("x", function (d, i) {
-					return xScale(i) + xScale.bandwidth() / 2;
-				})
-				.attr("y", function (d) {
-					return yScale(d.count) + 14;
-				})
-				.attr("font-family", "sans-serif")
-				.attr("font-size", "11px")
-				.attr("fill", "white");
-
-			//Create X axis
-			svg.append("g")
-				.attr("class", "x axis")
-				.attr("transform", "translate(0," + (h - padding) + ")")
-				.call(xAxis);
-
-			//Create Y axis
-			svg.append("g")
-				.attr("class", "y axis")
-				.attr("transform", "translate(" + padding + ",0)")
-				.call(yAxis);
-
-			//On click, update with new data			
-			d3.selectAll("p")
-				.on("click", function () {
-
-					//See which p was clicked
-					var paragraphID = d3.select(this).attr("id");
-					switch (paragraphID) {
-						case "fruit_h":
-							selected_category = 0;
-							break;
-						case "fruit_s":
-							selected_category = 1;
-							break;
-						case "veggie_h":
-							selected_category = 2;
-							break;
-						case "veggie_s":
-							selected_category = 3;
-							break;
-						default:
-							selected_category = 0;
-					}
-
-					data = dataset.filter(d => d.category === selected_category);
-
-					//Update scale domains
-					//xScale.domain(d3.range(data.length));
-					yScale.domain([0, d3.max(data, function (d) { return d.count; })]);
-
-					//Update all circles
+					//Create bars
 					svg.selectAll("rect")
 						.data(data)
-						.transition()
-						.duration(1000)
-						.attr("x", function (d) {
+						.enter()
+						.append("rect")
+						.attr("x", function (d, i) {
 							return xScale(d.month);
 						})
 						.attr("y", function (d) {
@@ -437,39 +378,140 @@
 						.attr("width", xScale.bandwidth())
 						.attr("height", function (d) {
 							return h - yScale(d.count) - padding;
-						});
+						})
+						.attr("fill", "blue");
 
-					//Update all labels
+					//Create labels
 					svg.selectAll("text")
 						.data(data)
-						.transition()
-						.duration(1000)
+						.enter()
+						.append("text")
 						.text(function (d) {
 							return d.count;
 						})
-						.attr("x", function (d) {
-							return xScale(d.month) + xScale.bandwidth() / 2;
+						.attr("text-anchor", "middle")
+						.attr("x", function (d, i) {
+							return xScale(i) + xScale.bandwidth() / 2;
 						})
 						.attr("y", function (d) {
 							return yScale(d.count) + 14;
-						});
+						})
+						.attr("font-family", "sans-serif")
+						.attr("font-size", "11px")
+						.attr("fill", "white");
 
-					//Update X axis
-					svg.select(".x.axis")
-						.transition()
-						.duration(1000)
+					//Create X axis
+					svg.append("g")
+						.attr("class", "x axis")
+						.attr("transform", "translate(0," + (h - padding) + ")")
 						.call(xAxis);
 
-					//Update Y axis
-					svg.select(".y.axis")
-						.transition()
-						.duration(1000)
+					//Create Y axis
+					svg.append("g")
+						.attr("class", "y axis")
+						.attr("transform", "translate(" + padding + ",0)")
 						.call(yAxis);
 
-				});
+					// now add titles to the axes
+					svg.append("text")
+						.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+						.attr("transform", "translate(" + (padding / 3) + "," + (h / 2) + ")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+						.text("Value");
+
+					svg.append("text")
+						.attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+						.attr("transform", "translate(" + (w / 2) + "," + (h) + ")")  // centre below axis
+						.text("Date");
+
+					//On click, update with new data			
+					d3.selectAll("p")
+						.on("click", function () {
+
+							//See which p was clicked
+							var paragraphID = d3.select(this).attr("id");
+							switch (paragraphID) {
+								case "fruit_h":
+									selected_category = 0;
+									break;
+								case "fruit_s":
+									selected_category = 1;
+									break;
+								case "veggie_h":
+									selected_category = 2;
+									break;
+								case "veggie_s":
+									selected_category = 3;
+									break;
+								default:
+									selected_category = 0;
+							}
+
+							data = dataset.filter(d => d.category === selected_category);
+
+							//Update scale domains
+							//xScale.domain(d3.range(data.length));
+							yScale.domain([0, d3.max(data, function (d) { return d.count; })]);
+
+							//Update all circles
+							svg.selectAll("rect")
+								.data(data)
+								.transition()
+								.duration(1000)
+								.attr("x", function (d) {
+									return xScale(d.month);
+								})
+								.attr("y", function (d) {
+									return yScale(d.count);
+								})
+								.attr("width", xScale.bandwidth())
+								.attr("height", function (d) {
+									return h - yScale(d.count) - padding;
+								});
+
+							//Update all labels
+							svg.selectAll("text")
+								.data(data)
+								.transition()
+								.duration(1000)
+								.text(function (d) {
+									return d.count;
+								})
+								.attr("x", function (d) {
+									return xScale(d.month) + xScale.bandwidth() / 2;
+								})
+								.attr("y", function (d) {
+									return yScale(d.count) + 14;
+								});
+
+							//Update X axis
+							svg.select(".x.axis")
+								.transition()
+								.duration(1000)
+								.call(xAxis);
+
+							//Update Y axis
+							svg.select(".y.axis")
+								.transition()
+								.duration(1000)
+								.call(yAxis);
+
+						});
 
 
-		</script>
+				</script>
+			</div>
+
+			<p>If you miss the month of September, you might be behind the fruit curve, but there are plenty more months of vegetables
+				left. The chart shows that fresh vegetables are available 9 out of 12 months, but fruit is only available 5 out of 12.
+				Now if only we could quantify how delicious the produce is…</p>
+			<p>—–</p>
+			<p>Data from:&nbsp;
+				<a href="http://www.grownyc.org/greenmarket/whatsavailable">http://www.grownyc.org/greenmarket/whatsavailable</a>
+			</p>
+		</div>
+
+		<h2>Part 4: Viz 2</h2>
+
 	</div>
 </body>
 

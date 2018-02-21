@@ -12,6 +12,15 @@ h2 {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+  color: #0F6F9F;
+  cursor: pointer;
+}
+a:hover {
+  color: #D00000;
+}
+
 .container {
   padding-right: 30px;
   padding-left: 30px;
@@ -35,4 +44,14 @@ h2 {
 .question {
   padding-bottom: 15px;
   font-size: 120%;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 36px;
+  color: #202020;
+}
+
+.chart-input{
+  cursor: pointer;
 }
